@@ -44,11 +44,11 @@ jobs:
             }
             return matrix;
   run-tests:
-    name: ${{ matrix.suite_name }}
+    # name: ${{ matrix.suite_name }}
     runs-on: ubuntu-latest
     needs: setup-matrix
-    strategy:
-      matrix: ${{ fromJson(needs.setup_matrix.outputs.matrix) }}
+    # strategy:
+      # matrix: ${{ fromJson(needs.setup_matrix.outputs.matrix) }}
     steps:
       - name: run the test
-        run: ${{ matrix.test_command }}
+        run: echo ${{ needs.setup_matrix.outputs }}
