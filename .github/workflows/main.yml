@@ -38,8 +38,8 @@ jobs:
                 }
               ]
             };
-            console.log(github);
-            if (qaRegex.test(github.head_ref)) {
+            console.log(context);
+            if (qaRegex.test(context.head_ref)) {
               matrix.include.push({
                 suite_name: "c",
                 test_command: "hello c"
