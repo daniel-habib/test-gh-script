@@ -22,6 +22,7 @@ jobs:
       - id: set-matrix
         uses: actions/github-script@v7
         with: 
+          debug: true
           result-encoding: string
           script: |
             const qaRegex = /qa.*/;
@@ -37,6 +38,7 @@ jobs:
                 }
               ]
             };
+            console.log(github);
             if (qaRegex.test(github.head_ref)) {
               matrix.include.push({
                 suite_name: "c",
