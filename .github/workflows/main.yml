@@ -38,7 +38,7 @@ jobs:
             };
             if (qaRegex.test(github.head_ref)) {
               matrix.include.push({
-                suite_name: "c"
+                suite_name: "c",
                 test_command: "echo c"
               });
             }
