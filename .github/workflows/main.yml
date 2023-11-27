@@ -22,6 +22,7 @@ jobs:
       - id: set-matrix
         uses: actions/github-script@v7
         with: 
+          result-encoding: string
           script: |
             const qaRegex = /qa.*/;
             const matrix = {
@@ -50,7 +51,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: setup_matrix
     strategy:
-      matrix: ${{ needs.setup_matrix.outputs.matrix }}
+      matrix: ${{ fromJson(needs.setup_matrix.outputs.matrix) }}
     steps:
       - name: run the test
         run: echo ${{ matrix.test_command }}
