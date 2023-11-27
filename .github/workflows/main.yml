@@ -37,8 +37,8 @@ jobs:
                 }
               ]
             };
-            console.log(context.pull_request);
-            if (qaRegex.test(context.pull_request.head.ref)) {
+            console.log(context.payload.pull_request);
+            if (qaRegex.test(context.payload.pull_request.head.ref)) {
               matrix.include.push({
                 suite_name: "c",
                 test_command: "hello c"
