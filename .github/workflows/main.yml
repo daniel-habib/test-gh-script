@@ -1,0 +1,52 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the workflow will run
+on:
+  pull_request:
+    branches: [ "main" ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  setup-matrix:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: steps.set-matrix.outputs.result
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      - id: set-matrix
+        uses: actions/github-script@v7
+        with: 
+          script: |
+            const qaRegex = /qa.*/;
+            const matrix = {
+              include: [
+                {
+                  suite_name: "a",
+                  test_command: "echo a"                  
+                },
+                {
+                  suite_name: "b",
+                  test_command: "echo b"
+                }
+              ]
+            };
+            if (qaRegex.test(github.head_ref)) {
+              matrix.include.push({
+                suite_name: "c"
+                test_command: "echo c"
+              });
+            }
+            return matrix;
+  run-tests:
+    runs-on: ubuntu-latest
+    needs: setup-matrix
+    strategy:
+      matrix: ${{ fromJson(needs.setup_matrix.outputs.matrix) }}
