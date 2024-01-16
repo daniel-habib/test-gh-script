@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: C
+name: Copy Secrets
 
 # Controls when the workflow will run
 on:
@@ -16,6 +16,8 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - uses: actions/github-script@v7
+        env:
+          secret1: ${{ secrets.DEV_SECRET_1 }}
         with:
           script: |
-            console.log(`Hello ${secrets.DEV_SECRET_1}`)
+            console.log(`Hello ${process.env.secret1}`)
