@@ -19,7 +19,7 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: '20.x'
-      - run: npm install libsodium
+      - run: npm i libsodium-wrappers
       - uses: actions/github-script@v7
         env:
           envName: "dev"
