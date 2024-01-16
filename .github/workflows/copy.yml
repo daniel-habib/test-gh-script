@@ -26,6 +26,7 @@ jobs:
           repoId: ${{ github.repository_id }}
           secret1: ${{ secrets.DEV_SECRET_1 }}
         with:
+          github-token: ${{ secrets.GH_PAT }}
           script: |
             const publicKeyResponse = await github.rest.actions.getEnvironmentPublicKey({
               repository_id: process.env.repoId,
