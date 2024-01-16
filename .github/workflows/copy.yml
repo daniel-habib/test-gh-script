@@ -27,8 +27,6 @@ jobs:
           secret1: ${{ secrets.DEV_SECRET_1 }}
         with:
           script: |
-            console.log(process.env);
-            /*
             const publicKeyResponse = await github.rest.actions.getEnvironmentPublicKey({
               process.env.repoId,
               process.env.envName,
@@ -36,6 +34,8 @@ jobs:
             console.log("Got env public key");
             const publicKey = publicKeyResponse.data.key;
             const publicKeyId = publicKeyResponse.data.key_id;
+            console.log(publicKeyId);
+            /*
             const sodium = require('libsodium-wrappers');
             await sodium.ready;
             
