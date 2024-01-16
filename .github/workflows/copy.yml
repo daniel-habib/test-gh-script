@@ -28,14 +28,13 @@ jobs:
         with:
           script: |
             const publicKeyResponse = await github.rest.actions.getEnvironmentPublicKey({
-              process.env.repoId,
-              process.env.envName,
+              repository_id: process.env.repoId,
+              environment_name: process.env.envName,
             });
             console.log("Got env public key");
             const publicKey = publicKeyResponse.data.key;
             const publicKeyId = publicKeyResponse.data.key_id;
-            console.log(publicKeyId);
-            /*
+
             const sodium = require('libsodium-wrappers');
             await sodium.ready;
             
@@ -51,13 +50,12 @@ jobs:
           
             console.log(`encrypted with env ${process.env.envName} public key - and about to PUT a secret in it`)
             github.rest.actions.createOrUpdateEnvironmentSecret({
-              process.env.repoId,
-              process.env.envName,
-              'DEV_SECRET_1',
-              output,
-              publicKeyId,
+              repository_id: process.env.repoId,
+              environment_name: process.env.envName,
+              secret_name: 'DEV_SECRET_1',
+              encrypted_value: output,
+              key_id: publicKeyId,
             });
             console.log("done");
-            */
 
 
