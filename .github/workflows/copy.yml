@@ -29,7 +29,7 @@ jobs:
           github-token: ${{ secrets.GH_PAT }}
           script: |
             const repoParts = ontext.payload.repository.full_name.split('/');
-            const { Octokit, App } require('octokit')
+            const { Octokit, App } = require('octokit');
             const octokit = new Octokit({ auth: process.env.github-token });
             const secretList = await octokit.paginate('GET /repos/{owner}/{repo}/actions/secrets', {
               owner: repoParts[0],
