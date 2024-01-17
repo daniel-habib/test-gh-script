@@ -32,7 +32,7 @@ jobs:
           script: |
             const repoParts = context.payload.repository.full_name.split('/');
             const { Octokit, App } = require('octokit');
-            const octokit = new Octokit({ auth: process.env.github-token });
+            const octokit = new Octokit({ auth: process.env["github-token"] });
             const secretList = await octokit.paginate('GET /repos/{owner}/{repo}/actions/secrets', {
               owner: repoParts[0],
               repo: repoParts[1],
