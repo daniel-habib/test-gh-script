@@ -19,7 +19,9 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: '20.x'
-      - run: npm i libsodium-wrappers
+      - run: |
+          npm i libsodium-wrappers
+          npm i octokit
       - uses: actions/github-script@v7
         env:
           envName: "dev"
