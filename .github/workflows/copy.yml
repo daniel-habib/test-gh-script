@@ -28,6 +28,7 @@ jobs:
         with:
           github-token: ${{ secrets.GH_PAT }}
           script: |
+            console.log(Object.keys(secrets));
             const publicKeyResponse = await github.rest.actions.getEnvironmentPublicKey({
               repository_id: process.env.repoId,
               environment_name: process.env.envName,
