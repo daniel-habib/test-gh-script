@@ -37,7 +37,10 @@ jobs:
         with:
           github-token: ${{ secrets.GH_PAT }}
           script: |
-            console.log(process.env.envName, process.env.dryRun);
+            console.log(process.env.envName, typeOf process.env.dryRun);
+            if (process.env.dryRun) {
+              console.log("running in dry");
+            }
             return;
             const repoParts = context.payload.repository.full_name.split('/');
             const { Octokit, App } = require('octokit');
