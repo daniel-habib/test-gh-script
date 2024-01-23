@@ -37,7 +37,7 @@ jobs:
         with:
           github-token: ${{ secrets.GH_PAT }}
           script: |
-            console.log(process.env.envName, typeOf process.env.dryRun);
+            console.log(process.env.envName, typeof process.env.dryRun);
             if (process.env.dryRun) {
               console.log("running in dry");
             }
