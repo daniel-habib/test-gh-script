@@ -8,9 +8,15 @@ on:
     inputs:
       copyToEnvironment:
         type: environment
-      dryRun:
-        type: boolean
-        default: true
+      runType:
+        type: choice
+        description: What type of run is required?
+        options: 
+          - dryRun
+          - overwriteSecretsInDestination
+        default:
+          dryRun
+
         
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -33,12 +39,12 @@ jobs:
           envName: ${{ github.event.inputs.copyToEnvironment }}
           repoId: ${{ github.repository_id }}
           secret1: ${{ secrets.DEV_SECRET_1 }}
-          dryRun: ${{ github.event.inputs.dryRun }}
+          runType: ${{ github.event.inputs.runType }}
         with:
           github-token: ${{ secrets.GH_PAT }}
           script: |
-            console.log(process.env.envName, typeof process.env.dryRun);
-            if (process.env.dryRun) {
+            console.log(process.env.envName, typeof process.env.runType);
+            if (process.env.runType == "dryRun") {
               console.log("running in dry");
             }
             return;
