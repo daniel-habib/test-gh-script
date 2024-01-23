@@ -5,6 +5,9 @@ name: Copy Secrets
 # Controls when the workflow will run
 on:
   workflow_dispatch:
+    inputs:
+      copyToEnvironment:
+        type: environment
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -30,6 +33,8 @@ jobs:
         with:
           github-token: ${{ secrets.GH_PAT }}
           script: |
+            console.log(github.event.inputs.copyToEnvironment);
+            return;
             const repoParts = context.payload.repository.full_name.split('/');
             const { Octokit, App } = require('octokit');
             const octokit = new Octokit({ auth: process.env["github-token"] });
