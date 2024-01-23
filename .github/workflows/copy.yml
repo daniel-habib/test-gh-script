@@ -27,13 +27,13 @@ jobs:
           npm i octokit
       - uses: actions/github-script@v7
         env:
-          envName: "dev"
+          envName: ${{ github.event.inputs.copyToEnvironment }}
           repoId: ${{ github.repository_id }}
           secret1: ${{ secrets.DEV_SECRET_1 }}
         with:
           github-token: ${{ secrets.GH_PAT }}
           script: |
-            console.log(github.event.inputs.copyToEnvironment);
+            console.log(process.env.envName);
             return;
             const repoParts = context.payload.repository.full_name.split('/');
             const { Octokit, App } = require('octokit');
