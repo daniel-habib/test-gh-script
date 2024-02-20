@@ -28,6 +28,8 @@ jobs:
           subject: Github Actions job result
           to: daniel@danielhabib.co.il
           from: Github Actions Admin
-          htmlBody: "# Test Run Summary
+          htmlBody: >
+            # Test Run Summary
+            
             ${{ github.job }} job in worflow ${{ github.workflow }} of ${{ github.repository }} has ${{ job.status }
-            "
+            
