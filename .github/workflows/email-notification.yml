@@ -32,4 +32,4 @@ jobs:
             # Test Run Summary
             
             ${{ github.job }} job in worflow ${{ github.workflow }} of ${{ github.repository }} has ${{ job.status }}
-            
+          convert_markdown: true
