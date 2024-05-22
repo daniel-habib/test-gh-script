@@ -1,0 +1,10 @@
+name: reusable caller
+
+on:
+  pull_request
+
+jobs:
+  call-workflow-passing-data:
+    uses: ./.github/workflows/workflow-b.yml
+    with:
+      config-path: "testing..."
