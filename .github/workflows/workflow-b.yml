@@ -1,0 +1,56 @@
+name: Reusable workflow example
+
+on:
+  workflow_call:
+    inputs:
+      config-path:
+        required: true
+        type: string
+env:
+  TERRAFORM_VERSION: 1.5.7
+  TERRAGRANT_VERSION: 0.57.2
+  TF_PLUGIN_CACHE_DIR: ${{ github.workspace }}/.terraform.d/plugin-cache
+
+jobs:
+  triage:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Read account.hcl
+        uses: actions/github-script@v7
+        id: read-account-hcl
+        env:
+          CHANGED_FILE: ${{ inputs.config-path }}
+        with:
+          script: |
+            const returnValue = {
+                terragruntDir: process.env.CHANGED_FILE,
+                accountId: "000011112222",
+                profile: "profile"
+            };
+            console.info('found values in account.hcl:',returnValue);
+            return returnValue;
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-Terraform@v3
+        with:
+          terraform_version: ${{ env.TERRAFORM_VERSION }}
+          terraform_wrapper: true
+
+      - name: Create Terraform Plugin Cache Dir
+        run: mkdir -p $TF_PLUGIN_CACHE_DIR
+
+      - name: Setup Terragrunt
+        uses: autero1/action-terragrunt@v3
+        with:
+          terragrunt-version: ${{ env.TERRAGRANT_VERSION }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Terraform Plugin Cache
+        uses: actions/cache@v4.0.1
+        with:
+          path: ${{ env.TF_PLUGIN_CACHE_DIR }}
+          key: ${{ runner.os }}-terraform-plugin-cache-${{ hashFiles('**/README.md') }}
+
