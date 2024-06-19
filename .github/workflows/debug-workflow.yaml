@@ -57,9 +57,10 @@ jobs:
         uses: actions/github-script@v7
         env:
           ENVS_CHANGED_FILES: ${{ steps.changed-files.outputs.all_changed_files }}
-          MODULES_RELATED_CHANGED_FILES: ${{ fromJson(steps.dependent-terragrunt-files.outputs.result).dependentFiles }}
+          MODULES_RELATED_CHANGED_FILES: ${{ steps.dependent-terragrunt-files.outputs.result }}
         with:
           script: |
+            console.log(process.env.MODULES_RELATED_CHANGED_FILES);
             const envFiles = JSON.parse(process.env.ENVS_CHANGED_FILES || "[]");
             const moduleFils = JSON.parse(process.env.MODULES_RELATED_CHANGED_FILES || "[]");
             const terragruntRegex = /(.*)\/terragrunt.hcl/;
