@@ -48,12 +48,13 @@ jobs:
             }
             const repoParts = context.payload.repository.full_name.split('/');
             const listResponse = await github.rest.actions.listEnvironmentSecrets({
-              repository_id: context.payload.repository.id,
+              # repository_id: context.payload.repository.id,
               owner: repoParts[0],
               repo: repoParts[1],
               environment_name: process.env.envName,
               per_page: 100
             });
+            console.log(listResponse);
             const secretList = JSON.parse(process.env.SECRETS);
             console.log(Object.keys(secretList));
             return;
