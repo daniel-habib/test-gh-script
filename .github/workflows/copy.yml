@@ -47,14 +47,7 @@ jobs:
               console.log("running in dry");
             }
             const repoParts = context.payload.repository.full_name.split('/');
-            console.log(context.payload.repository);
-            console.log(context.payload);
-            # const listResponse = await github.rest.actions.listEnvironmentSecrets({
-            #   owner: repoParts[0],
-            #   repo: repoParts[1],
-            #   environment_name: process.env.envName,
-            #   per_page: 100
-            # });
+            console.log(JSON.stringify(context.payload));
             const secretList = JSON.parse(process.env.SECRETS);
             console.log(Object.keys(secretList));
             return;
