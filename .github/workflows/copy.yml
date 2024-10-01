@@ -47,6 +47,8 @@ jobs:
               console.log("running in dry");
             }
             const repoParts = context.payload.repository.full_name.split('/');
+            console.log(repoParts);
+            console.log('github.repository', github.repository);
             const secretList = JSON.parse(process.env.SECRETS);
             console.log(Object.keys(secretList));
             return;
